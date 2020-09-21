@@ -93,6 +93,7 @@ h2 {
   font-weight: 700;
   border: none;
   border-radius: 3px;
+  transition: 0.2s all ease;
 }
 
 .button:hover,
@@ -312,6 +313,11 @@ h2 {
   font-size: 0;
 }
 
+.social__link path,
+.social__link circle {
+  transition: 0.2s all ease;
+}
+
 .social__link:hover path {
   fill: #45abde;
 }
@@ -333,6 +339,10 @@ h2 {
   width: 118px;
   height: 40px;
   font-size: 0;
+}
+
+.logo-academy path {
+  transition: 0.2s all ease;
 }
 
 .logo-academy:hover path {
@@ -373,16 +383,17 @@ h2 {
 
 .nav__item a::before {
   content: "";
-  display: none;
+  display: block;
   position: absolute;
   bottom: 0;
   width: calc(100% - 20px);
   height: 3px;
-  background-color: #e2e5e6;
+  background-color: transparent;
+  transition: 0.2s all ease;
 }
 
 .nav__item a:hover::before {
-  display: block;
+  background-color: #e2e5e6;
 }
 
 .nav__item a:active {
@@ -466,7 +477,9 @@ h2 {
   font-weight: 700;
   box-sizing: border-box;
   background-repeat: no-repeat;
+  transition: 0.2s all ease;
 }
+
 
 .promo__item--boards .promo__link {
   background-image: url("../img/category-1.jpg");
