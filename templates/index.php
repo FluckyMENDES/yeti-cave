@@ -44,7 +44,10 @@
                                 <span class="lot__cost"><?=format_price($elem['price']);?></span>
                             </div>
                             <div class="lot__timer timer">
-                                <?=date('h:y:s')?>
+                                <?php
+                                    $termination_ts = strtotime('tomorrow');
+                                    echo time_left($termination_ts, 3);
+                                ?>
                             </div>
                         </div>
                     </div>

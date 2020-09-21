@@ -17,6 +17,14 @@ function render($path, $vars = array()) {
         require $path;
         return ob_get_clean();
     } else {
-        return 'zda';
+        return 'Невозможно загрузить ' . $path;
     }
 };
+
+function time_left($termination_ts, $utc) {
+    $termination_ts = strtotime('tomorrow');
+    $now_ts = strtotime('now');
+    $time_shift = 3600 * $utc;
+    $left_ts = floor($termination_ts - $now_ts - $time_shift);
+    return date('G:i', $left_ts);
+}
