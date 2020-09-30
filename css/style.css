@@ -53,11 +53,14 @@ h2 {
 }
 
 .text-link {
-  font-weight: 700;
-  color: #45abde;
+  color: black;
 }
 
-.text-link:hover {
+.text-link:hover .lot {
+  box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6);
+}
+
+.text-link:hover .lot__title {
   text-decoration: underline;
 }
 
@@ -67,8 +70,8 @@ h2 {
 
 .visually-hidden {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  width: 1px !important;
+  height: 1px !important;
   margin: -1px;
   padding: 0;
   overflow: hidden;
@@ -93,7 +96,7 @@ h2 {
   font-weight: 700;
   border: none;
   border-radius: 3px;
-  transition: 0.2s all ease;
+  transition: 0.2s background-color ease;
 }
 
 .button:hover,
@@ -583,6 +586,7 @@ h2 {
 .lot {
   margin-bottom: 30px;
   background-color: #ffffff;
+  transition: 0.2s box-shadow ease;
 }
 
 .lot__image {
@@ -613,6 +617,7 @@ h2 {
   font-size: 18px;
   line-height: 24px;
   font-weight: 700;
+  color: #45abde;
 }
 
 .lot__state {
@@ -863,6 +868,13 @@ input:invalid .form__error{
 
 .form__item--invalid select {
   background: #ffffff url("../img/error.svg") 322px 11px no-repeat;
+  border-color: #f84646;
+}
+
+.form__item--invalid .form__file-button {
+  background-image: url("../img/error.svg");
+  background-position: right 10px top 10px;
+  background-repeat: no-repeat;
   border-color: #f84646;
 }
 
