@@ -28,3 +28,9 @@ function time_left($termination_ts, $utc) {
     $left_ts = floor($termination_ts - $now_ts - $time_shift);
     return date('G:i', $left_ts);
 }
+
+function console_log( $data ){
+    echo '<script>';
+    echo 'console.log('. json_encode( $data ) . ',' . json_encode(gettype($data)) . ')';
+    echo '</script>';
+}
