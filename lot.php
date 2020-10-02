@@ -4,6 +4,8 @@ require_once 'config.php';
 require_once 'functions.php';
 require_once 'data.php';
 
+session_start();
+
 $good = null; // Изначально обнуляем массив товара
 
 if (isset($_GET['good_id'])) { // Если в параметре GET-запроса имеется good_id
@@ -40,12 +42,7 @@ setcookie($cookie_name, $cookie_value, $cookie_expire, $cookie_path); // Сох�
 // -----------------------------------
 
 
-$is_auth = (bool) rand(0, 1);
-$user_name = 'Константин';
-$user_avatar = 'img/user.jpg';
-
 // Получаем разметку главной страницы в переменную
 $page_content = render('templates/lot.php', ['good' => $good]);
 // Выводим разметку лейаута, передаем туда разметку страницы товара и необходимые переменные;
-echo render('templates/layout.php', ['page_content' => $page_content, 'page_title' => $page_title, 'goods' => $goods, 'good_categories' => $good_categories,
-    'is_auth' => $is_auth, 'user_name' => $user_name, 'user_avatar' => $user_avatar]);
+echo render('templates/layout.php', ['page_content' => $page_content, 'page_title' => $page_title, 'goods' => $goods, 'good_categories' => $good_categories]);

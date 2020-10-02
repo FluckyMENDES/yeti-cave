@@ -13,8 +13,9 @@ $users = [
         'password' => '$2y$10$bWtSjUhwgggtxrnJ7rxmIe63ABubHQs0AS0hgnOo41IEdMHkYoSVa'
     ],
     [
-        'email' => 'warrior07@mail.ru',
-        'name' => 'Руслан',
-        'password' => '$2y$10$2OxpEH7narYpkOT1H5cApezuzh10tZEEQ2axgFOaKW.55LxIJBgWW'
+        'email' => 'flucky@mail.ru',
+        'name' => 'Олег',
+        'password' => '$2y$10$2OxpEH7narYpkOT1H5cApezuzh10tZEEQ2axgFOaKW.55LxIJBgWW',
+        'avatar' => 'img/avatar.jpg'
     ]
 ];

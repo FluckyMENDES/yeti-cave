@@ -1,7 +1,6 @@
 <?php
     require_once 'data.php';
     require_once 'functions.php';
-    print_r($errors);
 ?>
 <main>
   <nav class="nav">
@@ -51,6 +50,7 @@
                 Мин. ставка <span><?=format_price(($good['current_price'] + $good['price_step'])) ?></span>
             </div>
           </div>
+            <?php if ($_SESSION['user']) :?>
           <form class="lot-item__form" action="https://echo.htmlacademy.ru" method="post">
             <p class="lot-item__form-item">
               <label for="cost">Ваша ставка</label>
@@ -58,6 +58,7 @@
             </p>
             <button type="submit" class="button">Сделать ставку</button>
           </form>
+            <? endif; ?>
         </div>
         <div class="history">
           <h3>История ставок (<span>10</span>)</h3>

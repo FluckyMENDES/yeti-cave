@@ -34,3 +34,14 @@ function console_log( $data ){
     echo 'console.log('. json_encode( $data ) . ',' . json_encode(gettype($data)) . ')';
     echo '</script>';
 }
+
+function search_user_by_email($email, $users) {
+    $result = null;
+    foreach ($users as $user) {
+        if ($user['email'] === $email) {
+            $result = $user;
+            break;
+        }
+    }
+    return $result;
+}

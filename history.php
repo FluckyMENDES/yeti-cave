@@ -3,9 +3,6 @@ require_once 'config.php';
 require_once 'functions.php';
 require_once  'data.php';
 
-$is_auth = (bool) rand(0, 1);
-$user_name = 'Константин';
-$user_avatar = 'img/user.jpg';
 $page_title = 'История просмотров';
 
 
@@ -19,5 +16,4 @@ if (isset($_COOKIE['recent_goods'])) { // Если имеется куки
 $page_content = render('templates/all-lots.php', ['goods' => $recent_goods]); // сохраняем разметку добавления лота в переменную
 
 // Выводим разметку лейаута, передаем туда разметку страницы товара и необходимые переменные;
-echo render('templates/layout.php', ['page_content' => $page_content, 'page_title' => $page_title, 'good_categories' => $good_categories,
-    'is_auth' => $is_auth, 'user_name' => $user_name, 'user_avatar' => $user_avatar]);
+echo render('templates/layout.php', ['page_content' => $page_content, 'page_title' => $page_title, 'good_categories' => $good_categories]);
