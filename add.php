@@ -13,7 +13,6 @@ if (!$_SESSION['user']) {
     $page_content = render('templates/error.php', ['error' => $error]);
 } else {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Если на страницу перешли с переданными POST-параметрами, т.е. форма отправлена
-
         $good = $_POST;
 
         // ---------- ВАЛИДАЦИЯ ФОРМЫ ----------
@@ -46,7 +45,7 @@ if (!$_SESSION['user']) {
         // Валидация файла
         if (isset($_FILES['image_url'])) {
             $tmp_name = $_FILES['image_url']['tmp_name'];
-            $path = 'img/' . $_FILES['image_url']['name'];
+            $path = 'img/upload/' . $_FILES['image_url']['name'];
 
             $file_size = $_FILES['image_url']['size'];
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
