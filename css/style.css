@@ -148,6 +148,7 @@ h2 {
   position: relative;
   width: 100%;
   margin-right: 30px;
+  margin-bottom: 0;
 }
 
 .main-header__search input[type="search"] {
@@ -1010,8 +1011,8 @@ input:invalid .form__error{
 .lot-item__timer {
   -webkit-align-self: flex-end;
   -ms-flex-item-align: end;
-  align-self: flex-end;
-  width: 80px;
+  align-self: center;
+  max-width: 80px;
   margin-bottom: 19px;
   box-sizing: border-box;
 }

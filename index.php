@@ -6,7 +6,9 @@ $page_title = 'Главная';
 require_once 'config.php';
 require_once 'init.php';
 require_once 'functions.php';
-require_once 'db/goods.php';
+require_once 'db/recent_goods.php';
+
+//console_log($goods);
 
 $page_content = render('templates/index.php', ['goods' => $goods, 'categories' => $categories]);
 

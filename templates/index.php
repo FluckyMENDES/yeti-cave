@@ -46,10 +46,7 @@
                                 <span class="lot__cost"><?=format_price($good['current_price']);?></span>
                             </div>
                             <div class="lot__timer timer">
-                                <?php
-                                    $termination_ts = strtotime('tomorrow');
-                                    echo time_left($termination_ts, 3);
-                                ?>
+                                <?= get_lot_time_left($good) ?>
                             </div>
                         </div>
                     </div>

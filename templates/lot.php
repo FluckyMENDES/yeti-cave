@@ -36,7 +36,8 @@
       <div class="lot-item__right">
         <div class="lot-item__state">
           <div class="lot-item__timer timer">
-            10:54:12
+              <?= get_lot_time_left($good) ?>
+<!--            10:54:12-->
           </div>
           <div class="lot-item__cost-state">
             <div class="lot-item__rate">

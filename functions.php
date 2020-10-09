@@ -57,3 +57,20 @@ function get_array_from_db ($link, $sql) {
         return mysqli_error($link);
     }
 }
+
+function get_lot_time_left ($good) {
+    $now = date('Y-m-d H:i:s', strtotime('now')); // Получаем строчное значение текущей даты
+    $deadline = $good['end_date']; // Получаем строчное значение даты конца торгов из массива товара
+
+    $dte_now = new DateTime($now); // Переводим обе даты в формат DateTime
+    $dte_deadline = new DateTime($deadline);
+
+    $dte_diff  = $dte_now->diff($dte_deadline); // Счтаем разницу между датами
+    if ($dte_now > $dte_deadline) {
+        return 'Торги окончены';
+    } else {
+        return $dte_diff->format("%d дн. <br> %H:%I:%S");
+
+    }
+
+}

@@ -35,6 +35,7 @@ CREATE TABLE bids (
 CREATE TABLE lots (
     id INT AUTO_INCREMENT PRIMARY KEY,
     create_date DATETIME,
+    end_date DATETIME,
     title CHAR(255),
     description TEXT,
     img CHAR(255),
