@@ -1,7 +1,3 @@
-<?php
-    require_once 'data.php';
-    require_once 'functions.php';
-?>
 <main>
   <nav class="nav">
     <ul class="nav__list container">
@@ -25,13 +21,14 @@
       </li>
     </ul>
   </nav>
+
   <section class="lot-item container">
     <?php if (isset($good)) : ?> <!-- Если в шаблон передан массив с данными о товаре -->
     <h2><?=$good['title']?></h2>
     <div class="lot-item__content">
       <div class="lot-item__left">
         <div class="lot-item__image">
-          <img src="<?=$good['image_url']?>" width="730" height="548" alt="Сноуборд">
+          <img src="<?=$good['img']?>" width="730" height="548" alt="Сноуборд">
         </div>
         <p class="lot-item__category">Категория: <span><?=$good['category']?></span></p>
         <p class="lot-item__description"><?= $good['description'] ?></p>

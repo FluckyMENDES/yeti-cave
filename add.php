@@ -1,9 +1,9 @@
 <?php
+session_start();
 require_once 'config.php';
 require_once 'functions.php';
-require_once  'data.php';
+//require_once  'data.php';
 
-session_start();
 
 $page_title = 'Добавление нового лота';
 
@@ -80,4 +80,4 @@ if (!$_SESSION['user']) {
 }
 
 // Выводим разметку лейаута, передаем туда разметку страницы товара и необходимые переменные;
-echo render('templates/layout.php', ['page_content' => $page_content, 'page_title' => $page_title, 'good_categories' => $good_categories]);
+echo render('templates/layout.php', ['page_content' => $page_content, 'page_title' => $page_title, 'categories' => $categories]);

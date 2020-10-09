@@ -45,3 +45,15 @@ function search_user_by_email($email, $users) {
     }
     return $result;
 }
+
+function get_array_from_db ($link, $sql) {
+    // Получаем категории товаров
+    $result = mysqli_query($link, $sql);
+    // ===== Проверка SQL запроса
+    if ($result) { // Получен ответ
+        return mysqli_fetch_all($result, MYSQLI_ASSOC); // Преобразуем полученные данные в массив
+    } else { // Получена ошибка
+        console_log(mysqli_error($link));
+        return mysqli_error($link);
+    }
+}

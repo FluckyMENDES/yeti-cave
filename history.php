@@ -1,7 +1,7 @@
 <?php
 require_once 'config.php';
 require_once 'functions.php';
-require_once  'data.php';
+//require_once  'data.php';
 
 $page_title = 'История просмотров';
 
@@ -16,4 +16,4 @@ if (isset($_COOKIE['recent_goods'])) { // Если имеется куки
 $page_content = render('templates/all-lots.php', ['goods' => $recent_goods]); // сохраняем разметку добавления лота в переменную
 
 // Выводим разметку лейаута, передаем туда разметку страницы товара и необходимые переменные;
-echo render('templates/layout.php', ['page_content' => $page_content, 'page_title' => $page_title, 'good_categories' => $good_categories]);
+echo render('templates/layout.php', ['page_content' => $page_content, 'page_title' => $page_title, 'categories' => $categories]);

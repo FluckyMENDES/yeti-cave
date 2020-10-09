@@ -1,2 +1,3 @@
 <?php
 date_default_timezone_set('Europe/Moscow');
+$db = ['host' => 'localhost', 'user' => 'root', 'password' => 'root', 'database' => 'yeti_cave'];

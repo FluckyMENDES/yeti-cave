@@ -1,12 +1,12 @@
 <?php
+session_start();
 require_once 'config.php';
 require_once 'functions.php';
-require_once 'data.php';
+//require_once 'data.php';
 require_once 'userdata.php';
+require_once 'init.php';
 
 $page_title = 'Вход в аккаунт';
-
-session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Если зашли с на страницу с отправленной формой
 //    console_log('Зашли на страницу с отправленной формой');
     $form = $_POST; // Создадим переменную для удобства
@@ -58,5 +58,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Если зашли с на ст
     }
 }
 
+// ===== Проверка подключения к базе данных
+if (!$link) { // Не подключились
+    $error = mysqli_connect_error();
+    $page_content = render('templates/error.php', ['error' => $error]);
+} else { // Подключились
+    // Получаем категории товаров
+    $sql = 'SELECT `category` FROM categories';
+    $categories = get_array_from_db($link, $sql);
+    $page_content = render('templates/login.php', ['categories' => $categories]);
+}
+
 // Выводим разметку лейаута, передаем туда разметку страницы товара и необходимые переменные;
-echo render('templates/layout.php', ['page_content' => $page_content, 'page_title' => $page_title, 'good_categories' => $good_categories]);
+echo render('templates/layout.php', ['page_content' => $page_content, 'page_title' => $page_title, 'categories' => $categories]);

@@ -93,9 +93,10 @@ SET bid = '11199', user = '3', lot_id = '1', date = '2020-09-20 15:31:52';
 # Получаем все категории
 SELECT title FROM categories;
 #Получаем самые новые открытые лоты. Название, стартовая цена, ссылка на изображение, текущую цену, кол-во ставок, название категории.
-SELECT lots.title, lots.start_price, lots.img, lots.current_price, categories.title, lots.bids_count FROM lots
+SELECT lots.title, lots.img, lots.current_price, categories.category
+FROM lots
 JOIN categories
-ON lots.category = categories.id
+ON lots.category_id = categories.id;
 ORDER BY lots.create_date DESC;
 #Получаем лот по id вместе с названием категории
 SELECT lots.title, categories.title FROM lots

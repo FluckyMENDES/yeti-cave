@@ -7,7 +7,6 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-
 <header class="main-header">
     <div class="main-header__container container">
         <h1 class="visually-hidden">YetiCave</h1>
@@ -55,15 +54,16 @@
     </div>
 </header>
 
+
 <?=$page_content;?>
 
 <footer class="main-footer">
     <nav class="nav">
         <ul class="nav__list container">
             <?php
-            foreach ($good_categories as $value) { ?>
+            foreach ($categories as $category_array) { ?>
                 <li class="nav__item">
-                    <a href="all-lots.html"><?=$value?></a>
+                    <a href="all-lots.html"><?=$category_array['category']?></a>
                 </li>
             <?php    }
             ?>

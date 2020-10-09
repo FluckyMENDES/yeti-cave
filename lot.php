@@ -2,14 +2,14 @@
 
 require_once 'config.php';
 require_once 'functions.php';
-require_once 'data.php';
+require_once 'init.php';
 
 session_start();
 
 $good = null; // Изначально обнуляем массив товара
 
-if (isset($_GET['good_id'])) { // Если в параметре GET-запроса имеется good_id
-    $good_id = $_GET['good_id']; // Сохраняем в переменную данный good_id
+if (isset($_GET['id'])) { // Если в параметре GET-запроса имеется id
+    $good_id = $_GET['id']; // Сохраняем в переменную данный id
 
     foreach ($goods as $item) { // Проходимся по массиву с товарами
         if ($item['id'] == $good_id) { // Если натыкаемся на товар с ID идентичным как в переданном GET-параметре
@@ -45,4 +45,4 @@ setcookie($cookie_name, $cookie_value, $cookie_expire, $cookie_path); // Сох�
 // Получаем разметку главной страницы в переменную
 $page_content = render('templates/lot.php', ['good' => $good]);
 // Выводим разметку лейаута, передаем туда разметку страницы товара и необходимые переменные;
-echo render('templates/layout.php', ['page_content' => $page_content, 'page_title' => $page_title, 'goods' => $goods, 'good_categories' => $good_categories]);
+echo render('templates/layout.php', ['page_content' => $page_content, 'page_title' => $page_title, 'goods' => $goods, 'categories' => $categories]);

@@ -1,8 +1,8 @@
-<?php console_log($_SESSION); ?>
 <main class="container">
     <section class="promo">
         <h2 class="promo__title">Нужен стафф для катки?</h2>
         <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
+
         <ul class="promo__list">
             <li class="promo__item promo__item--boards">
                 <a class="promo__link" href="all-lots.html">Доски и лыжи</a>
@@ -31,19 +31,19 @@
         <ul class="lots__list">
 
             <?php
-            foreach ($goods as $elem) { ?>
-                <a class="text-link" href="<?=$elem['link']?>">
+            foreach ($goods as $good) { ?>
+                <a class="text-link" href="lot.php?id=<?=$good['id']?>">
                 <li class="lots__item lot">
                     <div class="lot__image">
-                        <img src="<?=$elem['image_url']?>" width="350" height="260" alt="Сноуборд">
+                        <img src="<?=$good['img']?>" width="350" height="260" alt="Сноуборд">
                     </div>
                     <div class="lot__info">
-                        <span class="lot__category"><?=$elem['category']?></span>
-                        <h3 class="lot__title"><?=$elem['title']?></h3>
+                        <span class="lot__category"><?=$good['category']?></span>
+                        <h3 class="lot__title"><?=$good['title']?></h3>
                         <div class="lot__state">
                             <div class="lot__rate">
                                 <span class="lot__amount">Стартовая цена</span>
-                                <span class="lot__cost"><?=format_price($elem['current_price']);?></span>
+                                <span class="lot__cost"><?=format_price($good['current_price']);?></span>
                             </div>
                             <div class="lot__timer timer">
                                 <?php
