@@ -24,7 +24,7 @@
             <input class="main-header__search-btn" type="submit" name="find" value="Найти">
         </form>
 
-            <? if($_SESSION['user']['name']) : ?>
+            <? if($_SESSION['user']['email']) : ?>
             <a class="main-header__add-lot button" href="add.php">Добавить лот</a>
 
             <nav class="user-menu">
