@@ -69,8 +69,7 @@ function get_lot_time_left ($good) {
     if ($dte_now > $dte_deadline) {
         return 'Торги окончены';
     } else {
-        return $dte_diff->format("%d дн. <br> %H:%I:%S");
+        return $dte_diff->format("<strong>%d дн.</strong> <br> %H:%I:%S");
 
     }
-
 }

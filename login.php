@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Если зашли с на ст
 } else { // Если зашли на страницу без POST запроса
 
     if (isset($_SESSION['user'])) { // Если в массиве сессии имеется ключ user, т.е. пользователь уже вошел на сайт
-        require_once 'db/goods.php'; // Получаем данные карточек товара
+        require_once 'db/categories.php'; // Получаем данные карточек товара
         $page_content = render('templates/index.php', ['username' => $_SESSION['user']['name'], 'goods' => $goods]); // Выводим шаблон главной страницы и передаем в него имя пользователя
     } else { // Если в массиве сессии нет ключа user, т.е. пользователь не вошел на сайт
         $page_content = render ('templates/login.php', []); // Выводим шаблон страницы входа.

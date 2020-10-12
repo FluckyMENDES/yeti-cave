@@ -1,11 +1,11 @@
 <?php
-
+session_start();
 require_once 'config.php';
 require_once 'functions.php';
 require_once 'init.php';
 require_once 'db/recent_goods.php';
+require_once 'db/categories.php';
 
-session_start();
 
 $good = null; // Изначально обнуляем массив товара
 
@@ -41,7 +41,7 @@ if (isset($_COOKIE['recent_goods'])) { // Если имеется куки с д
 }
 setcookie($cookie_name, $cookie_value, $cookie_expire, $cookie_path); // Сохраняем куки
 // -----------------------------------
-console_log($goods  );
+
 
 // Получаем разметку главной страницы в переменную
 $page_content = render('templates/lot.php', ['good' => $good]);

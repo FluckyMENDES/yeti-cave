@@ -28,7 +28,7 @@
     <div class="lot-item__content">
       <div class="lot-item__left">
         <div class="lot-item__image">
-          <img src="<?=$good['img']?>" width="730" height="548" alt="Сноуборд">
+          <img src="<?=$good['img']?>" alt="Сноуборд">
         </div>
         <p class="lot-item__category">Категория: <span><?=$good['category']?></span></p>
         <p class="lot-item__description"><?= $good['description'] ?></p>
@@ -37,7 +37,6 @@
         <div class="lot-item__state">
           <div class="lot-item__timer timer">
               <?= get_lot_time_left($good) ?>
-<!--            10:54:12-->
           </div>
           <div class="lot-item__cost-state">
             <div class="lot-item__rate">

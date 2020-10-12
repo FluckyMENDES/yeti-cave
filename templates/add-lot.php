@@ -39,13 +39,10 @@
             <div class="form__item <?= $class_name ?>">
                 <label for="category">Категория</label>
                 <select id="category" name="category" required>
-                    <option>Выберите категорию</option>
-                    <option>Доски и лыжи</option>
-                    <option>Крепления</option>
-                    <option>Ботинки</option>
-                    <option>Одежда</option>
-                    <option>Инструменты</option>
-                    <option>Разное</option>
+                    <?
+                        foreach ($categories as $category) { ?>
+                            <option><?= $category['category'] ?></option>
+                    <?php } ?>
                 </select>
                 <span class="form__error"><?=$error?></span>
             </div>
@@ -59,7 +56,7 @@
             <span class="form__error"><?=$error?></span>
         </div>
         <?php $class_name = isset($errors['Изображение']) ? 'form__item--invalid' : '';
-        $value = isset($good['image_url']) ? $good['image_url'] : '';
+        $value = isset($good['img']) ? $good['img'] : '';
         $error = isset($errors['Изображение']) ? $errors['Изображение'] : ""?>
         <div class="form__item form__item--file <?=$class_name?>"> <!-- form__item--uploaded -->
             <label>Изображение</label>
@@ -70,7 +67,7 @@
                 </div>
             </div>
             <div class="form__input-file">
-                <input class="visually-hidden" type="file" id="photo2" value="" name="image_url">
+                <input class="visually-hidden" type="file" id="photo2" value="" name="img">
                 <label for="photo2">
                     <span class="form__file-button">+ Добавить</span>
                 </label>
@@ -79,11 +76,11 @@
         </div>
         <div class="form__container-three">
             <?php $class_name = isset($errors['Начальная цена']) ? 'form__item--invalid' : '';
-            $value = isset($good['current_price']) ? $good['current_price'] : '';
+            $value = isset($good['start_price']) ? $good['start_price'] : '';
             $error = isset($errors['Начальная цена']) ? $errors['Начальная цена'] : ""?>
             <div class="form__item form__item--small <?=$class_name?>">
                 <label for="lot-rate">Начальная цена</label>
-                <input id="lot-rate" type="number" name="current_price" placeholder="0" value="<?=$value?>" required>
+                <input id="lot-rate" type="number" name="start_price" placeholder="0" value="<?=$value?>" required>
                 <span class="form__error"><?=$error?></span>
             </div>
             <?php $class_name = isset($errors['Шаг ставки']) ? 'form__item--invalid' : '';
@@ -94,10 +91,13 @@
                 <input id="lot-step" type="number" name="price_step" placeholder="0" value="<?=$value?>" required>
                 <span class="form__error"><?=$error?></span>
             </div>
-            <div class="form__item">
+            <?php $class_name = isset($errors['Дата окончания торгов']) ? 'form__item--invalid' : '';
+            $value = isset($good['end_date']) ? $good['end_date'] : '';
+            $error = isset($errors['Дата окончания торгов']) ? $errors['Дата окончания торгов'] : ""?>
+            <div class="form__item <?=$class_name?>">
                 <label for="lot-date">Дата окончания торгов</label>
-                <input class="form__input-date" id="end_date" type="date" name="lot-date" required>
-                <span class="form__error">Введите дату завершения торгов</span>
+                <input class="form__input-date" id="end_date" type="date" name="end_date" value="<?=$value?>" required>
+                <span class="form__error"><?=$error?></span>
             </div>
         </div>
         <span class="form__error form__error--bottom"></span>

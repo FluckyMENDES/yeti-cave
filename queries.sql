@@ -91,7 +91,7 @@ SET bid = '11199', user = '3', lot_id = '1', date = '2020-09-20 15:31:52';
 
 # -----------------Запросы----------------
 # Получаем все категории
-SELECT title FROM categories;
+SELECT category FROM categories;
 #Получаем данные 6 ближайших к дедлайну лотов, категория подставляется из связанной таблицы.
 SELECT lots.*, categories.category
 FROM lots

@@ -594,14 +594,15 @@ h2 {
 }
 
 .lot__image {
-  width: 350px;
-  height: 261px;
+  padding: 20px 0;
   border-bottom: 1px solid #e1e6e7;
 }
 
 .lot__image img {
-  width: 100%;
-  height: 100%;
+
+  max-width: 350px;
+  max-height: 261px;
+  object-fit: contain;
 }
 
 .lot__info {
@@ -649,11 +650,12 @@ h2 {
   -webkit-align-self: flex-end;
   -ms-flex-item-align: end;
   align-self: flex-end;
+  text-align: right;
 }
 
 .timer {
   position: relative;
-  padding: 6px 8px 5px 25px;
+  padding: 6px 8px 5px 10px;
   background-color: #879296;
   font-size: 13px;
   line-height: 18px;
@@ -892,7 +894,7 @@ input:invalid .form__error{
 
 .form__item--file label span {
   display: block;
-  width: 115px;
+  min-width: 115px;
   height: 110px;
   background-color: #cad5d8;
   color: #ffffff;
@@ -974,19 +976,17 @@ input:invalid .form__error{
   position: relative;
   width: 730px;
   height: 550px;
+  padding: 50px 0;
   text-align: center;
   background-color: #ffffff;
   overflow: hidden;
 }
 
 .lot-item__image img {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  display: block;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-position: center;
 }
 
 .lot-item__category {
@@ -1012,9 +1012,10 @@ input:invalid .form__error{
   -webkit-align-self: flex-end;
   -ms-flex-item-align: end;
   align-self: center;
-  max-width: 80px;
+  max-width: 68px;
   margin-bottom: 19px;
   box-sizing: border-box;
+  text-align: right;
 }
 
 .lot-item__cost-state {
