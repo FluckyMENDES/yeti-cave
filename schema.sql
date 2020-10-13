@@ -47,3 +47,5 @@ CREATE TABLE lots (
     winner_id INT,
     category_id INT
 );
+
+CREATE FULLTEXT INDEX lots_ft_search ON lots(title, description);
