@@ -25,6 +25,17 @@ if (!$good) { // Если не нашли товара с данным ID
     http_response_code(404); // Устанавливаем код ответа 404
 }
 
+$bids = []; // Создаем массив для ставок лота
+$sql = 'SELECT bids.date, bids.amount, users.name FROM bids JOIN users ON users.id = bids.user_id WHERE lot_id = ' . $_GET['id'];
+if ($result = mysqli_query($link, $sql)) {
+    /* извлечение ассоциативного массива */
+    while ($row = mysqli_fetch_assoc($result)) {
+        $bids[] = $row;
+    }
+    /* удаление выборки */
+    mysqli_free_result($result);
+}
+
 // ------------ Cookie ---------------
 
 $cookie_name = 'recent_goods'; // Задаем имя куки
@@ -44,6 +55,6 @@ setcookie($cookie_name, $cookie_value, $cookie_expire, $cookie_path); // Сох�
 
 
 // Получаем разметку главной страницы в переменную
-$page_content = render('templates/lot.php', ['good' => $good]);
+$page_content = render('templates/lot.php', ['good' => $good, 'bids' => $bids]);
 // Выводим разметку лейаута, передаем туда разметку страницы товара и необходимые переменные;
 echo render('templates/layout.php', ['page_content' => $page_content, 'page_title' => $page_title, 'goods' => $goods, 'categories' => $categories]);

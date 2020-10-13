@@ -27,8 +27,8 @@ CREATE TABLE categories (
 CREATE TABLE bids (
     id INT AUTO_INCREMENT PRIMARY KEY,
     date DATETIME,
-    bid INT,
-    user INT,
+    amount INT,
+    user_id INT,
     lot_id INT
 );
 

@@ -70,6 +70,26 @@ function get_lot_time_left ($good) {
         return 'Торги окончены';
     } else {
         return $dte_diff->format("<strong>%d дн.</strong> <br> %H:%I:%S");
-
     }
+}
+
+function format_date ($date_str) {
+    $now = date('Y-m-d H:i:s', strtotime('now'));
+    $bid_date = ($date_str);
+    $dte_now = new DateTime($now);
+    $dte_bid = new DateTime($bid_date);
+
+    $dte_diff = $dte_now->diff($dte_bid);
+
+    if ($dte_diff->d < 2 && $dte_diff->d >= 1)  {
+        $time = $dte_bid->format('H:i');
+        return "Вчера в $time";
+    } elseif ($dte_diff->d < 1 && $dte_diff->h >= 1 ) {
+        return "$dte_diff->h часов назад";
+    } elseif ($dte_diff->h < 1 && $dte_diff->i >= 1) {
+        return "$dte_diff->i минут назад";
+    } else {
+        return date('d.m.y в H:i', strtotime($bid_date));
+    }
+//    return $dte_diff;
 }
