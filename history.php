@@ -1,11 +1,9 @@
 <?php
 require_once 'config.php';
 require_once 'functions.php';
-//require_once  'data.php';
 require_once 'db/recent_goods.php';
 
 $page_title = 'История просмотров';
-
 
 if (isset($_COOKIE['recent_goods'])) { // Если имеется куки
     $goods_ids = json_decode($_COOKIE['recent_goods']); // Получаем в переменную массив с ID из куки

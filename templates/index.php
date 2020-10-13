@@ -45,8 +45,8 @@
                                 <span class="lot__amount">Текущая цена</span>
                                 <span class="lot__cost"><?=format_price($good['current_price']);?></span>
                             </div>
-                            <div class="lot__timer timer">
-                                <?= get_lot_time_left($good) ?>
+                            <div class="lot__timer timer <?=add_timer_class($good['end_date'])?>">
+                                <?= get_time_left($good['end_date']) ?>
                             </div>
                         </div>
                     </div>

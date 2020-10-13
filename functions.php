@@ -58,9 +58,9 @@ function get_array_from_db ($link, $sql) {
     }
 }
 
-function get_lot_time_left ($good) {
+function get_time_left ($deadline) {
     $now = date('Y-m-d H:i:s', strtotime('now')); // Получаем строчное значение текущей даты
-    $deadline = $good['end_date']; // Получаем строчное значение даты конца торгов из массива товара
+    // Получаем строчное значение даты конца торгов из массива товара
 
     $dte_now = new DateTime($now); // Переводим обе даты в формат DateTime
     $dte_deadline = new DateTime($deadline);
@@ -70,6 +70,23 @@ function get_lot_time_left ($good) {
         return 'Торги окончены';
     } else {
         return $dte_diff->format("<strong>%d дн.</strong> <br> %H:%I:%S");
+    }
+}
+
+function add_timer_class ($deadline) {
+    $now = date('Y-m-d H:i:s', strtotime('now')); // Получаем строчное значение текущей даты
+    // Получаем строчное значение даты конца торгов из массива товара
+
+    $dte_now = new DateTime($now); // Переводим обе даты в формат DateTime
+    $dte_deadline = new DateTime($deadline);
+
+    $dte_diff  = $dte_now->diff($dte_deadline); // Счтаем разницу между датами
+    if ($dte_now > $dte_deadline) {
+        return 'timer--end';
+    } elseif ($dte_diff->d <= 0 && $dte_diff->s > 1) {
+        return 'timer--finishing';
+    } else {
+        return '';
     }
 }
 
@@ -83,13 +100,15 @@ function format_date ($date_str) {
 
     if ($dte_diff->d < 2 && $dte_diff->d >= 1)  {
         $time = $dte_bid->format('H:i');
-        return "Вчера в $time";
+        $result = "Вчера в $time";
     } elseif ($dte_diff->d < 1 && $dte_diff->h >= 1 ) {
-        return "$dte_diff->h часов назад";
+        $result = "$dte_diff->h час. назад";
     } elseif ($dte_diff->h < 1 && $dte_diff->i >= 1) {
-        return "$dte_diff->i минут назад";
+        $result = "$dte_diff->i мин. назад";
+    } elseif ($dte_diff->i < 1 && $dte_diff->s >= 0.00001) {
+        $result = "менее мин. назад";
     } else {
-        return date('d.m.y в H:i', strtotime($bid_date));
+        $result = date('d.m.y в H:i', strtotime($bid_date));
     }
-//    return $dte_diff;
+    return $result;
 }

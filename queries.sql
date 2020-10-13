@@ -109,9 +109,9 @@ UPDATE lots
 SET title = 'Новое название'
 WHERE id = 1;
 #Выводим новые ставки для определенного лота
-SELECT bids.date, bids.bid, users.name
+SELECT bids.date, bids.amount, users.name
 FROM bids
 JOIN users
-ON bids.user = users.id
+ON bids.user_id = users.id
 WHERE bids.lot_id = 1
 ORDER BY bids.date DESC;

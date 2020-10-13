@@ -6,35 +6,33 @@ require_once 'init.php';
 require_once 'db/recent_goods.php';
 require_once 'db/categories.php';
 
-
 $good = null; // Изначально обнуляем массив товара
 
 if (isset($_GET['id'])) { // Если в параметре GET-запроса имеется id
     $good_id = $_GET['id']; // Сохраняем в переменную данный id
 
-    foreach ($goods as $item) { // Проходимся по массиву с товарами
-        if ($item['id'] == $good_id) { // Если натыкаемся на товар с ID идентичным как в переданном GET-параметре
-            $good = $item; // Устанавливаем этот элемент массива в переменную
-            $page_title = $good['title']; // Задаем title для страницы
-            break;
-        }
-    }
-}
+    $sql = "SELECT lots.*, categories.category
+            FROM lots
+            JOIN categories
+            ON lots.category_id = categories.id
+            WHERE lots.id = $good_id";
+    $result = mysqli_query($link, $sql);
+    $good = mysqli_fetch_assoc($result);
+    $page_title = $good['title'];
 
-if (!$good) { // Если не нашли товара с данным ID
+    $bids = []; // Создаем массив для ставок лота
+    $sql = "SELECT bids.date, bids.amount, users.name FROM bids JOIN users ON users.id = bids.user_id WHERE lot_id = $good_id LIMIT 10;";
+
+    if ($result = mysqli_query($link, $sql)) {
+        while ($row = mysqli_fetch_assoc($result)) { // извлечение ассоциативного массива
+            $bids[] = $row;
+        }
+        mysqli_free_result($result); // удаление выборки
+    }
+} else {
     http_response_code(404); // Устанавливаем код ответа 404
 }
 
-$bids = []; // Создаем массив для ставок лота
-$sql = 'SELECT bids.date, bids.amount, users.name FROM bids JOIN users ON users.id = bids.user_id WHERE lot_id = ' . $_GET['id'];
-if ($result = mysqli_query($link, $sql)) {
-    /* извлечение ассоциативного массива */
-    while ($row = mysqli_fetch_assoc($result)) {
-        $bids[] = $row;
-    }
-    /* удаление выборки */
-    mysqli_free_result($result);
-}
 
 // ------------ Cookie ---------------
 
@@ -52,7 +50,6 @@ if (isset($_COOKIE['recent_goods'])) { // Если имеется куки с д
 }
 setcookie($cookie_name, $cookie_value, $cookie_expire, $cookie_path); // Сохраняем куки
 // -----------------------------------
-
 
 // Получаем разметку главной страницы в переменную
 $page_content = render('templates/lot.php', ['good' => $good, 'bids' => $bids]);

@@ -77,7 +77,8 @@ if (!$_SESSION['user']) {
 
         } else { // Если ошибок нет
             // Формирование запроса к БД
-            $sql = "INSERT INTO lots (title, category_id, description, start_price, price_step, create_date, img, end_date, current_price)
+            $user_email = $_SESSION['user']['email'];
+            $sql = "INSERT INTO lots (title, category_id, description, start_price, price_step, create_date, img, end_date, current_price, author_id)
                     VALUES ('" . $good['title'] .
                 "' ,(SELECT id FROM categories WHERE category = '" . $good['category'] . "'), '" .
                 $good['description'] . "', " .
@@ -86,9 +87,9 @@ if (!$_SESSION['user']) {
                 date('Y-m-d H:i:s') . "', '".
                 $good['img'] . "', '" .
                 $good['end_date'] . "', " .
-                $good['start_price'] .
+                $good['start_price'] . ", " .
+                "(SELECT id FROM users WHERE email = '$user_email')" .
                 ");"; // Формируем SQL запрос
-
             $result = mysqli_query($link, $sql); // Посылаем запрос на запись данных пользователя в БД
             $good_id = mysqli_insert_id($link);
 

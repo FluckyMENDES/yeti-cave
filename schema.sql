@@ -43,8 +43,7 @@ CREATE TABLE lots (
     current_price INT,
     price_step INT,
     fav_count INT,
-    author INT,
-    purchaser INT,
-    category INT,
-    bids_count INT
+    author_id INT,
+    winner_id INT,
+    category_id INT
 );
