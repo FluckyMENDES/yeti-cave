@@ -1,24 +1,11 @@
 <main>
   <nav class="nav">
     <ul class="nav__list container">
-      <li class="nav__item">
-        <a href="all-lots.html">Доски и лыжи</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Крепления</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Ботинки</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Одежда</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Инструменты</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Разное</a>
-      </li>
+        <? foreach ($categories as $category) {?>
+        <li class="nav__item">
+            <a href="all-lots.html"><?=$category['category']?></a>
+        </li>
+        <? }?>
     </ul>
   </nav>
 
@@ -47,7 +34,11 @@
                 Мин. ставка <span><?=format_price(($good['current_price'] + $good['price_step'])) ?></span>
             </div>
           </div>
-            <?php if ($_SESSION['user']) :?>
+            <?php
+                $deadline = strtotime($good['end_date']);
+                $now = strtotime('now');
+                // Если пользователь вошел, пользователь не создатель лота и лот не просрочен.
+                if ($_SESSION['user'] && $_SESSION['user']['email'] != $good['email'] && $deadline > $now) :?>
           <form class="lot-item__form" action="add-bid.php" method="post">
             <p class="lot-item__form-item">
               <label for="cost">Ваша ставка</label>
@@ -56,6 +47,8 @@
             </p>
             <button type="submit" class="button">Сделать ставку</button>
           </form>
+            <? elseif ($_SESSION['user']['email'] === $good['email']): ?>
+            <span>Данный лот создали вы</span>
             <? endif; ?>
         </div>
         <div class="history">

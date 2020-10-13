@@ -15,6 +15,6 @@ if (!$link) { // Не подключились
             JOIN categories
             ON lots.category_id = categories.id
             WHERE lots.end_date > NOW()
-            ORDER BY lots.end_date ASC LIMIT 6;";
+            ORDER BY lots.end_date ASC LIMIT 9;";
     $goods = get_array_from_db($link, $sql);
 }

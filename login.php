@@ -4,6 +4,8 @@ require_once 'config.php';
 require_once 'functions.php';
 require_once 'init.php';
 require_once 'db/users.php';
+require_once 'db/categories.php';
+
 
 $page_title = 'Вход в аккаунт';
 
@@ -39,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Если зашли с на ст
     }
 
     if (count($errors)) { // Если в массиве с ошибками есть ошибки
-        $page_content = render ('templates/login.php', ['form' => $form, 'errors' => $errors]); // Выводим шаблон страницы входа и передаем в него массив с ошибками
+        $page_content = render ('templates/login.php', ['form' => $form, 'errors' => $errors, 'categories' => $categories]); // Выводим шаблон страницы входа и передаем в него массив с ошибками
     // ####################### УСПЕШНЫЙ ВХОД ##########################
     } else { // Если ошибок нет
         // Обработка данных для запроса в БД
@@ -55,10 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Если зашли с на ст
 } else { // Если зашли на страницу без POST запроса
 
     if (isset($_SESSION['user'])) { // Если в массиве сессии имеется ключ user, т.е. пользователь уже вошел на сайт
-        require_once 'db/categories.php'; // Получаем данные карточек товара
-        $page_content = render('templates/index.php', ['username' => $_SESSION['user']['name'], 'goods' => $goods]); // Выводим шаблон главной страницы и передаем в него имя пользователя
+        $page_content = render('templates/index.php', ['username' => $_SESSION['user']['name'], 'goods' => $goods, 'categories' => $categories]); // Выводим шаблон главной страницы и передаем в него имя пользователя
     } else { // Если в массиве сессии нет ключа user, т.е. пользователь не вошел на сайт
-        $page_content = render ('templates/login.php', []); // Выводим шаблон страницы входа.
+        $page_content = render ('templates/login.php', ['categories' => $categories]); // Выводим шаблон страницы входа.
     }
 }
 

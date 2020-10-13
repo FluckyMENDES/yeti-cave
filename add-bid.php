@@ -10,8 +10,10 @@ if($_SESSION['user']) { // Если пользователь вошел на с�
 
     if ($_POST['bid']) { // И он перешел с отправкой формы со ставкой
         $bid = $_POST['bid'];
+        settype($bid, 'integer'); // Приводим переменную к числу для исключения возможности SQL-инъекции
         $user_email = $_SESSION['user']['email'];
         $good_id = $_POST['good_id'];
+        settype($good_id, 'integer'); // Приводим переменную к числу для исключения возможности SQL-инъекции
 
         // Получаем из БД текущую цену и шаг ставки
         $sql = "SELECT current_price, price_step FROM lots WHERE id = $good_id";
@@ -25,13 +27,21 @@ if($_SESSION['user']) { // Если пользователь вошел на с�
             $error = "Минимальная допустимая ставка меньше возможной.";
             $page_content = render('templates/error.php', ['error' => $error]);
 
-            ########## ДОБАВЛЕНИЕ СТАВКИ В БД ##########
+        ########## ДОБАВЛЕНИЕ СТАВКИ В БД ##########
         } else {
-            // ОБЪЕДИНИТЬ В ТРАНЗАКЦИЮ
-            $sql = "INSERT INTO bids SET amount = $bid, lot_id = $good_id, user_id = (SELECT id FROM users WHERE email = '$user_email'), date = '" . date('Y-m-d H:i:s') . "';";
-            $result = mysqli_query($link, $sql);
-            $sql = "UPDATE lots SET current_price = $bid, winner_id = (SELECT id FROM users WHERE email = '$user_email') WHERE id = $good_id;";
-            $result = mysqli_query($link, $sql);
+
+            mysqli_query($link, 'START TRANSACTION'); // Объединяем два запроса в транзакцию
+            $sql1 = "INSERT INTO bids SET amount = $bid, lot_id = $good_id, user_id = (SELECT id FROM users WHERE email = '$user_email'), date = '" . date('Y-m-d H:i:s') . "';";
+            $result1 = mysqli_query($link, $sql1);
+            $sql2 = "UPDATE lots SET current_price = $bid, winner_id = (SELECT id FROM users WHERE email = '$user_email') WHERE id = $good_id;";
+            $result2 = mysqli_query($link, $sql2);
+
+            if ($result1 && $result2) { // если оба запроса выполнились успешно
+                mysqli_query($link, "COMMIT"); // сохраняем изменения в БД
+            } else {
+                mysqli_query($link, "ROLLBACK"); // откатываем изменения
+            }
+
             header("Location: lot.php?id=$good_id");
             exit();
         }

@@ -8,6 +8,6 @@ if (!$link) { // Не подключились
     $error = mysqli_connect_error();
     $page_content = render('templates/error.php', ['error' => $error]);
 } else { // Подключились
-    $sql = 'SELECT category FROM categories;'; // Получаем все e-mail'ы из базы данных
+    $sql = 'SELECT category, eng FROM categories;'; // Получаем все e-mail'ы из базы данных
     $categories = get_array_from_db($link, $sql); // Сохраняем их в массив
 }

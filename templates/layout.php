@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title><?=$page_title?></title>
+    <link rel="icon" href="img/icon.png">
     <link href="css/normalize.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>

@@ -10,18 +10,28 @@ $good = null; // Изначально обнуляем массив товара
 
 if (isset($_GET['id'])) { // Если в параметре GET-запроса имеется id
     $good_id = $_GET['id']; // Сохраняем в переменную данный id
+    settype($good_id, 'integer'); // Приводим переменную к числу для исключения возможности SQL-инъекции
 
-    $sql = "SELECT lots.*, categories.category
+
+    $sql = "SELECT lots.id, lots.create_date, lots.end_date, lots.title, lots.description, lots.img, lots.start_price, lots.current_price, lots.price_step , categories.category, users.name, users.email
             FROM lots
             JOIN categories
-            ON lots.category_id = categories.id
-            WHERE lots.id = $good_id";
+            JOIN users
+            ON lots.category_id = categories.id AND lots.author_id = users.id
+            WHERE lots.id = $good_id;";
+
     $result = mysqli_query($link, $sql);
     $good = mysqli_fetch_assoc($result);
     $page_title = $good['title'];
 
     $bids = []; // Создаем массив для ставок лота
-    $sql = "SELECT bids.date, bids.amount, users.name FROM bids JOIN users ON users.id = bids.user_id WHERE lot_id = $good_id LIMIT 10;";
+    $sql = "SELECT bids.date, bids.amount, users.name
+            FROM bids
+            JOIN users
+            ON users.id = bids.user_id
+            WHERE lot_id = $good_id
+            ORDER BY bids.date DESC
+            LIMIT 10;";
 
     if ($result = mysqli_query($link, $sql)) {
         while ($row = mysqli_fetch_assoc($result)) { // извлечение ассоциативного массива
@@ -52,6 +62,6 @@ setcookie($cookie_name, $cookie_value, $cookie_expire, $cookie_path); // Сох�
 // -----------------------------------
 
 // Получаем разметку главной страницы в переменную
-$page_content = render('templates/lot.php', ['good' => $good, 'bids' => $bids]);
+$page_content = render('templates/lot.php', ['good' => $good, 'bids' => $bids, 'categories' => $categories]);
 // Выводим разметку лейаута, передаем туда разметку страницы товара и необходимые переменные;
 echo render('templates/layout.php', ['page_content' => $page_content, 'page_title' => $page_title, 'goods' => $goods, 'categories' => $categories]);

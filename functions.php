@@ -105,7 +105,7 @@ function format_date ($date_str) {
         $result = "$dte_diff->h час. назад";
     } elseif ($dte_diff->h < 1 && $dte_diff->i >= 1) {
         $result = "$dte_diff->i мин. назад";
-    } elseif ($dte_diff->i < 1 && $dte_diff->s >= 0.00001) {
+    } elseif ($dte_diff->i < 1 && $dte_diff->s >= 0) {
         $result = "менее мин. назад";
     } else {
         $result = date('d.m.y в H:i', strtotime($bid_date));

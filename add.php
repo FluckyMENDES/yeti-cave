@@ -63,7 +63,7 @@ if (!$_SESSION['user']) {
                 $good['img'] = $path; // добавляем в массив $_POST значение по ключу image_url
             }
 
-            if ($file_size > 200000) {
+            if ($file_size > 500000) {
                 $errors['Изображение'] = 'Максимальный размер файла 200кб';
             }
         } else {
@@ -76,20 +76,28 @@ if (!$_SESSION['user']) {
         // ########## ДОБАВЛЯЕМ ЛОТ В БАЗУ ДАННЫХ ##########
 
         } else { // Если ошибок нет
-            // Формирование запроса к БД
+            // Экранируем значения для предотвращения SQL-инъекции
             $user_email = $_SESSION['user']['email'];
+            $good_title = mysqli_real_escape_string($link, $good['title']);
+            $good_category = mysqli_real_escape_string($link, $good['category']);
+            $good_description = mysqli_real_escape_string($link, $good['description']);
+            $good_start_price = mysqli_real_escape_string($link, $good['start_price']);
+            $good_price_step = mysqli_real_escape_string($link, $good['price_step']);
+            $good_img = mysqli_real_escape_string($link, $good['img']);
+            $good_end_date = mysqli_real_escape_string($link, $good['end_date']);
+
+            // Формируем SQL запрос
             $sql = "INSERT INTO lots (title, category_id, description, start_price, price_step, create_date, img, end_date, current_price, author_id)
-                    VALUES ('" . $good['title'] .
-                "' ,(SELECT id FROM categories WHERE category = '" . $good['category'] . "'), '" .
-                $good['description'] . "', " .
-                $good['start_price'] . ", " .
-                $good['price_step'] . ", '" .
-                date('Y-m-d H:i:s') . "', '".
-                $good['img'] . "', '" .
-                $good['end_date'] . "', " .
-                $good['start_price'] . ", " .
-                "(SELECT id FROM users WHERE email = '$user_email')" .
-                ");"; // Формируем SQL запрос
+                    VALUES ('$good_title' ,
+                            (SELECT id FROM categories WHERE category = '$good_category'),
+                            '$good_description',
+                            $good_start_price,
+                            $good_price_step, '" .
+                            date('Y-m-d H:i:s') . "',
+                            '$good_img',
+                            '$good_end_date',
+                            $good_start_price,
+                            (SELECT id FROM users WHERE email = '$user_email'));";
             $result = mysqli_query($link, $sql); // Посылаем запрос на запись данных пользователя в БД
             $good_id = mysqli_insert_id($link);
 
