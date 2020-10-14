@@ -1,13 +1,5 @@
 <main>
-    <nav class="nav">
-        <ul class="nav__list container">
-            <? foreach ($categories as $category) {?>
-                <li class="nav__item">
-                    <a href="all-lots.html"><?=$category['category']?></a>
-                </li>
-            <? }?>
-        </ul>
-    </nav>
+    <?=render('templates/_cat-menu.php', ['categories' => $categories]);?>
     <form novalidate class="form container" action="login.php" method="POST"> <!-- form--invalid -->
         <h2>Вход</h2>
         <?php $class_name = isset($errors['email']) ? 'form__item--invalid' : '';

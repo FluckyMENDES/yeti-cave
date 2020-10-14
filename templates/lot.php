@@ -1,15 +1,7 @@
 <main>
-  <nav class="nav">
-    <ul class="nav__list container">
-        <? foreach ($categories as $category) {?>
-        <li class="nav__item">
-            <a href="all-lots.html"><?=$category['category']?></a>
-        </li>
-        <? }?>
-    </ul>
-  </nav>
+    <?=render('templates/_cat-menu.php', ['categories' => $categories]);?>
 
-  <section class="lot-item container">
+    <section class="lot-item container">
     <?php if (isset($good)) : ?> <!-- Если в шаблон передан массив с данными о товаре -->
     <h2><?=$good['title']?></h2>
     <div class="lot-item__content">

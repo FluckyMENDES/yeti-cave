@@ -1,13 +1,5 @@
 <main>
-    <nav class="nav">
-        <ul class="nav__list container">
-            <? foreach ($categories as $category) {?>
-                <li class="nav__item">
-                    <a href="all-lots.html"><?=$category['category']?></a>
-                </li>
-            <? }?>
-        </ul>
-    </nav>
+    <?=render('templates/_cat-menu.php', ['categories' => $categories]);?>
     <div class="container">
         <section class="lots">
             <? if(count($goods)) : ?>
@@ -25,7 +17,6 @@
                                 <h3 class="lot__title"><?=$good['title']?></h3>
                                 <div class="lot__state">
                                     <div class="lot__rate">
-                                        <span class="lot__amount">12 ставок</span>
                                         <span class="lot__cost"><?=format_price($good['current_price']);?></span>
                                     </div>
                                     <div class="lot__timer timer <?=add_timer_class($good['end_date'])?>">
@@ -42,13 +33,6 @@
                 <? endif; ?>
             </ul>
         </section>
-        <ul class="pagination-list">
-            <li class="pagination-item pagination-item-prev"><a>Назад</a></li>
-            <li class="pagination-item pagination-item-active"><a>1</a></li>
-            <li class="pagination-item"><a href="#">2</a></li>
-            <li class="pagination-item"><a href="#">3</a></li>
-            <li class="pagination-item"><a href="#">4</a></li>
-            <li class="pagination-item pagination-item-next"><a href="#">Вперед</a></li>
-        </ul>
+        <?= render('templates/_pagination.php', ['pages' => $pages, 'pages_count' => $pages_count, 'cur_page' => $cur_page]); ?>
     </div>
 </main>

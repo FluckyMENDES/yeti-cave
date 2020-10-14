@@ -29,9 +29,16 @@
 }
 
 /* Общее */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
 
 body {
-  min-width: 1140px;
+  /*min-width: 1140px;*/
   background-color: #dbe6e9;
   font-family: "PT Sans", sans-serif;
   font-weight: 400;
@@ -82,9 +89,22 @@ h2 {
 }
 
 .container {
-  width: 1110px;
+  max-width: 1140px;
+  width: 100%;
   margin: 0 auto;
   padding: 0 15px;
+}
+
+@media (max-width: 1140px) {
+  .container {
+    max-width: 758px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 500px;
+  }
 }
 
 .button {
@@ -454,7 +474,7 @@ h2 {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  width: 542px;
+  max-width: 542px;
   padding: 0;
   margin: 0;
   list-style: none;
@@ -583,6 +603,11 @@ h2 {
   list-style: none;
 }
 
+@media (max-width: 768px) {
+  .lots__list {
+    justify-content: center;
+  }
+}
 .lots__item {
   width: 350px;
 }
@@ -655,6 +680,7 @@ h2 {
 
 .timer {
   position: relative;
+  max-width: 65px;
   padding: 6px 8px 5px 10px;
   background-color: #879296;
   font-size: 13px;
@@ -747,6 +773,17 @@ h2 {
   color: #25434e;
 }
 
+.pagination-item-inactive {
+  opacity: 0.5;
+}
+
+.pagination-item-inactive a:hover {
+  color: #879296;
+}
+
+.pagination-item-inactive a:active {
+  color: #879296;
+}
 /* Форма Регистрация + Добавление лота */
 
 .form {
@@ -964,17 +1001,29 @@ input:invalid .form__error{
   justify-content: space-between;
 }
 
+@media (max-width: 768px) {
+  .lot-item__content {
+    flex-direction: column;
+  }
+}
+
 .lot-item__left {
-  width: 730px;
+  max-width: 730px;
+}
+
+@media (max-width: 1140px) {
+  .lot-item__left {
+    margin-right: 20px;
+  }
 }
 
 .lot-item__right {
-  width: 350px;
+  /*max-width: 350px;*/
 }
 
 .lot-item__image {
   position: relative;
-  width: 730px;
+  max-width: 730px;
   height: 550px;
   padding: 50px 0;
   text-align: center;
@@ -1109,7 +1158,7 @@ input:invalid .form__error{
   -ms-flex-pack: justify;
   justify-content: space-between;
   padding: 6px 20px;
-  min-width: 310px;
+  min-width: 330px;
   background-color: #ffffff;
   border-bottom: 1px solid #dbe6e9;
   font-size: 13px;

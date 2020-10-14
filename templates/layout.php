@@ -59,17 +59,7 @@
 <?=$page_content;?>
 
 <footer class="main-footer">
-    <nav class="nav">
-        <ul class="nav__list container">
-            <?php
-            foreach ($categories as $category_array) { ?>
-                <li class="nav__item">
-                    <a href="all-lots.html"><?=$category_array['category']?></a>
-                </li>
-            <?php    }
-            ?>
-        </ul>
-    </nav>
+    <?=render('templates/_cat-menu.php', ['categories' => $categories]);?>
     <div class="main-footer__bottom container">
         <div class="main-footer__copyright">
             <p>© 2020, YetiCave</p>

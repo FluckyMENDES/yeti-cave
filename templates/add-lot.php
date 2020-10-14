@@ -1,13 +1,5 @@
 <main>
-    <nav class="nav">
-        <ul class="nav__list container">
-            <? foreach ($categories as $category) {?>
-                <li class="nav__item">
-                    <a href="all-lots.html"><?=$category['category']?></a>
-                </li>
-            <? }?>
-        </ul>
-    </nav>
+    <?=render('templates/_cat-menu.php', ['categories' => $categories]);?>
     <?php $class_name = isset($errors) ? 'form--invalid' : '' ?>
     <form novalidate class="form form--add-lot container <?=$class_name?>" action="add.php" method="post" enctype="multipart/form-data"> <!-- form--invalid -->
         <h2>Добавление лота</h2>

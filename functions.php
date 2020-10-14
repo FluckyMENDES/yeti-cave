@@ -112,3 +112,16 @@ function format_date ($date_str) {
     }
     return $result;
 }
+//
+function insert_get_attributes ($pass) {
+    $result = '';
+    if($_GET) {
+        $result . '?';
+        foreach ($_GET as $key => $value) {
+            if ($key != $pass) {
+                $result = $result . '&' . $key . '=' . $value;
+            }
+        }
+    }
+    return $result;
+}
