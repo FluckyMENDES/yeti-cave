@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title><?=$page_title?></title>
     <link rel="icon" href="img/icon.png">
@@ -24,14 +25,17 @@
             <input type="search" name="search" minlength="3" placeholder="Поиск лота" value="<?=$_GET['search'] ?? '';?>">
             <button class="main-header__search-btn" type="submit">Найти</button>
         </form>
+        <div class="main-header__wrapper">
 
             <? if($_SESSION['user']['email']) : ?>
+
+
             <a class="main-header__add-lot button" href="add.php">Добавить лот</a>
 
             <nav class="user-menu">
 
                 <div class="user-menu__image">
-                    <img src="<?=$_SESSION['user']['avatar']?>" width="40" height="40" alt="Пользователь">
+                    <a href="my-lots.php"><img src="<?=$_SESSION['user']['avatar']?>" width="40" height="40" alt="Пользователь"></a>
                 </div>
                 <div class="user-menu__logged">
                     <p><?=$_SESSION['user']['name']?></p>
@@ -51,6 +55,7 @@
             <? endif; ?>
 
         </nav>
+        </div>
 
     </div>
 </header>
@@ -99,5 +104,6 @@
     </div>
 </footer>
 
+<script src="script.js"></script>
 </body>
 </html>

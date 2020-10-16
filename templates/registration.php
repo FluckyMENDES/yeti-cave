@@ -49,7 +49,7 @@
             <div class="form__input-file">
                 <input class="visually-hidden" name="avatar" type="file" id="photo2" value="">
                 <label for="photo2">
-                    <span>+ Добавить изображение</span>
+                    <span class="form__file-button">+ Добавить изображение</span>
                 </label>
             </div>
             <span class="form__error"><?=$error?></span>

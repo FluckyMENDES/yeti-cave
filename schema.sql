@@ -14,9 +14,7 @@ CREATE TABLE users (
     name VARCHAR(20),
     password VARCHAR(64),
     avatar VARCHAR(255),
-    address VARCHAR(100),
-    lots INT,
-    bids INT
+    address VARCHAR(100)
 );
 
 CREATE TABLE categories (

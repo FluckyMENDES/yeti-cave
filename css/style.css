@@ -133,6 +133,21 @@ h2 {
   opacity: 0.2;
 }
 
+.button--delete {
+  background-color: tomato;
+}
+
+.button--delete:hover,
+.button--delete:focus {
+  background-color: #f84646;
+}
+
+@media (max-width: 768px) {
+  .button {
+    width: 100%;
+  }
+}
+
 .rub {
   display: inline-block;
   width: 12px;
@@ -159,9 +174,27 @@ h2 {
   justify-content: flex-start;
 }
 
+.main-header__wrapper {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .main-header__container{
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
 .main-header__logo {
   display: block;
   margin-right: 30px;
+}
+
+@media (max-width: 768px) {
+  .main-header__logo img{
+    margin-bottom: 20px;
+    text-align: center;
+  }
 }
 
 .main-header__search {
@@ -169,6 +202,12 @@ h2 {
   width: 100%;
   margin-right: 30px;
   margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .main-header__search {
+    margin-bottom: 20px;
+  }
 }
 
 .main-header__search input[type="search"] {
@@ -304,11 +343,25 @@ h2 {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 25px 0;
+  padding: 25px 20px;
+}
+
+@media (max-width: 768px) {
+  .main-footer__bottom {
+    flex-direction: column;
+  }
 }
 
 .main-footer__copyright {
   max-width: 212px;
+}
+
+@media (max-width: 768px) {
+  .main-footer__copyright {
+    max-width: none;
+    margin-bottom: 10px;
+    text-align: center;
+  }
 }
 
 .main-footer__copyright p {
@@ -318,8 +371,22 @@ h2 {
   line-height: 19px;
 }
 
+@media (max-width: 768px) {
+  .main-footer__add-lot {
+    order: -1;
+    margin-bottom: 20px;
+  }
+}
+
 .main-footer__social {
   width: 140px;
+}
+
+@media (max-width: 768px) {
+  .main-footer__social {
+    margin-bottom: 20px;
+    width: 250px;
+  }
 }
 
 .social {
@@ -338,6 +405,13 @@ h2 {
   width: 27px;
   height: 27px;
   font-size: 0;
+}
+
+@media (max-width: 768px) {
+  .social__link, .social__link svg {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 .social__link path,
@@ -475,9 +549,16 @@ h2 {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   max-width: 542px;
+  width: 100%;
   padding: 0;
   margin: 0;
   list-style: none;
+}
+
+@media (max-width: 768px) {
+  .promo__list {
+    justify-content: center;
+  }
 }
 
 .promo__link:nth-child(1),
@@ -589,43 +670,56 @@ h2 {
 }
 
 .lots__list {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+  /*display: -webkit-flex;*/
+  /*display: -ms-flexbox;*/
+  /*display: flex;*/
+  /*-webkit-flex-wrap: wrap;*/
+  /*-ms-flex-wrap: wrap;*/
+  /*flex-wrap: wrap;*/
+  /*-webkit-justify-content: space-between;*/
+  /*-ms-flex-pack: justify;*/
+  /*justify-content: space-between;*/
   margin: 0;
   padding: 0;
   list-style: none;
+  display: grid;
+  grid-template: 1fr / 1fr 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 1140px) {
+  .lots__list {
+    grid-template: 1fr / 1fr 1fr;
+    /*justify-content: center;*/
+  }
 }
 
 @media (max-width: 768px) {
   .lots__list {
-    justify-content: center;
+    grid-template: 1fr / 1fr;
+    /*justify-content: center;*/
   }
 }
 .lots__item {
-  width: 350px;
+  /*width: 350px;*/
 }
 
 .lot {
-  margin-bottom: 30px;
+  /*margin-bottom: 30px;*/
   background-color: #ffffff;
   transition: 0.2s box-shadow ease;
 }
 
 .lot__image {
+  min-height: 360px;
   padding: 20px 0;
   border-bottom: 1px solid #e1e6e7;
+  text-align: center;
 }
 
 .lot__image img {
-
-  max-width: 350px;
+  max-width: 320px;
   max-height: 261px;
   object-fit: contain;
 }
@@ -680,7 +774,7 @@ h2 {
 
 .timer {
   position: relative;
-  max-width: 65px;
+  /*max-width: 65px;*/
   padding: 6px 8px 5px 10px;
   background-color: #879296;
   font-size: 13px;
@@ -795,10 +889,17 @@ h2 {
 }
 
 .form__item {
-  width: 350px;
+  max-width: 350px;
+  width: 100%;
   margin: 0;
   margin-bottom: 14px;
   font-size: 13px;
+}
+
+@media (max-width: 768px) {
+  .form__item {
+    max-width: none;
+  }
 }
 
 .form__item label {
@@ -826,11 +927,12 @@ h2 {
 }
 
 .form__item--small {
-  width: 160px
+  max-width: 160px;
+  margin-right: 10px;
 }
 
 .form__item--wide {
-  width: 730px;
+  max-width: 730px;
 }
 
 .form__item--last {
@@ -845,7 +947,7 @@ h2 {
 
 .form__item select {
   display: block;
-  width: 350px;
+  max-width: 350px;
   padding: 5px 10px;
   border: 1px solid #ffffff;
   box-sizing: border-box;
@@ -868,7 +970,13 @@ h2 {
   -webkit-justify-content: space-between;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  width: 730px;
+  max-width: 730px;
+}
+
+@media (max-width: 768px) {
+  .form__container-two {
+    flex-direction: column;
+  }
 }
 
 .form__container-three {
@@ -917,6 +1025,7 @@ input:invalid .form__error{
 .form__item--invalid .form__file-button {
   background-image: url("../img/error.svg");
   background-position: right 10px top 10px;
+  background-size: auto;
   background-repeat: no-repeat;
   border-color: #f84646;
 }
@@ -934,6 +1043,9 @@ input:invalid .form__error{
   min-width: 115px;
   height: 110px;
   background-color: #cad5d8;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   color: #ffffff;
   font-size: 16px;
   text-align: center;
@@ -1009,7 +1121,10 @@ input:invalid .form__error{
 
 .lot-item__left {
   max-width: 730px;
+  width: 100%;
+
 }
+
 
 @media (max-width: 1140px) {
   .lot-item__left {
@@ -1017,8 +1132,22 @@ input:invalid .form__error{
   }
 }
 
+@media (max-width: 768px) {
+  .lot-item__left {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+}
+
 .lot-item__right {
   /*max-width: 350px;*/
+  min-width: 350px;
+}
+
+@media (max-width: 1140px) {
+  .lot-item__right {
+    /*min-width: 300px;*/
+  }
 }
 
 .lot-item__image {
@@ -1029,6 +1158,12 @@ input:invalid .form__error{
   text-align: center;
   background-color: #ffffff;
   overflow: hidden;
+}
+
+@media (max-width: 1140px) {
+  .lot-item__image {
+    /*max-width: 450px;*/
+  }
 }
 
 .lot-item__image img {
@@ -1107,6 +1242,7 @@ input:invalid .form__error{
 
 .lot-item__form-item {
   margin: 0;
+  margin-right: 10px;
 }
 
 .lot-item__form-item label {
@@ -1140,7 +1276,7 @@ input:invalid .form__error{
 /* История ставок */
 
 .history {
-  margin-top: 34px;
+  margin-top: 20px;
 }
 
 .history h3 {
@@ -1148,6 +1284,10 @@ input:invalid .form__error{
   margin-bottom: 13px;
   font-size: 16px;
   font-weight: 700;
+}
+
+.history__list {
+  width: 100%;
 }
 
 .history__item {
@@ -1176,6 +1316,14 @@ input:invalid .form__error{
 
 .history__name {
   font-weight: 700;
+}
+
+.history__price {
+  flex-basis: 20%;
+}
+
+.history__time {
+  flex-basis: 40%;
 }
 
 /* Мои ставки */
@@ -1274,7 +1422,8 @@ input:invalid .form__error{
 }
 
 .rates__timer .timer {
-  width: 82px;
+  min-width: 82px;
+  text-indent: 15px;
   box-sizing: border-box;
 }
 

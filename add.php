@@ -39,13 +39,15 @@ if (!$_SESSION['user']) {
                     $errors[$dict[$key]] = 'Только цифровое значение';
                 }
             } elseif ($key === 'end_date') { // Валидация даты
-                $ts = strtotime($good['end_date']); // Конвертируем дату переданную пользователем в timestamp
-                if ($ts < strtotime('now')) { // Если данная дата меньше текущей
+                $end_date = strtotime($good['end_date']); // Конвертируем дату переданную пользователем в timestamp
+                if ($end_date < strtotime('now')) { // Если данная дата меньше текущей
                     $errors[$dict[$key]] = 'Введите корректную дату. Не раньше чем завтра.'; // Добавляем соотв. ошибку
+                } elseif ($end_date > strtotime('+30 days')) {
+                    $max_end_date = date('d.m.Y', strtotime('+30 days'));
+                    $errors[$dict[$key]] = "Введите корректную дату. Не позднее $max_end_date"; // Добавляем соотв. ошибку
                 }
             }
         }
-
         // Валидация файла
         if (isset($_FILES['img'])) {
             $tmp_name = $_FILES['img']['tmp_name'];
@@ -76,31 +78,20 @@ if (!$_SESSION['user']) {
         // ########## ДОБАВЛЯЕМ ЛОТ В БАЗУ ДАННЫХ ##########
 
         } else { // Если ошибок нет
-            // Экранируем значения для предотвращения SQL-инъекции
-            $user_email = $_SESSION['user']['email'];
-            $good_title = mysqli_real_escape_string($link, $good['title']);
-            $good_category = mysqli_real_escape_string($link, $good['category']);
-            $good_description = mysqli_real_escape_string($link, $good['description']);
-            $good_start_price = mysqli_real_escape_string($link, $good['start_price']);
-            $good_price_step = mysqli_real_escape_string($link, $good['price_step']);
-            $good_img = mysqli_real_escape_string($link, $good['img']);
-            $good_end_date = mysqli_real_escape_string($link, $good['end_date']);
 
-            // Формируем SQL запрос
             $sql = "INSERT INTO lots (title, category_id, description, start_price, price_step, create_date, img, end_date, current_price, author_id)
-                    VALUES ('$good_title' ,
-                            (SELECT id FROM categories WHERE category = '$good_category'),
-                            '$good_description',
-                            $good_start_price,
-                            $good_price_step, '" .
-                            date('Y-m-d H:i:s') . "',
-                            '$good_img',
-                            '$good_end_date',
-                            $good_start_price,
-                            (SELECT id FROM users WHERE email = '$user_email'));";
-            $result = mysqli_query($link, $sql); // Посылаем запрос на запись данных пользователя в БД
-            $good_id = mysqli_insert_id($link);
+                                            VALUES ( :good_title, (SELECT id FROM categories WHERE category = :good_category), :good_description, :good_start_price, :good_price_step, '" .
+                date('Y-m-d H:i:s') . "', :good_img, :good_end_date, :good_start_price, (SELECT id FROM users WHERE email = :user_email));";
+            // Формируем подготовленное выражение
+            $sth = $dbh->prepare($sql);
+            // Передаем в него массив с данными
+            $sth->execute(array('good_title' => $good['title'], 'good_category' => $good['category'], 'good_description' => $good['description'], 'good_start_price' => $good['start_price'], 'good_price_step' => $good['price_step'], 'good_img' => $good['img'], 'good_end_date' => $good['end_date'], 'good_start_price' => $good['start_price'], 'user_email' => $_SESSION['user']['email']));
+            // Получаем результат
+            $result = $sth->fetch(PDO::FETCH_ASSOC);
+            // Получаем последний добавленный индекс для формирования ссылки на товар
+            $good_id = $dbh->lastInsertId();
 
+            // Перенаправляем на страницу созданного товара
             header('Location: lot.php?id=' . $good_id);
         }
 

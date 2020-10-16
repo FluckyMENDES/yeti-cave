@@ -52,6 +52,7 @@
                 </label>
                 <span class="form__error"><?=$error?></span>
             </div>
+
         </div>
         <div class="form__container-three">
             <?php $class_name = isset($errors['Начальная цена']) ? 'form__item--invalid' : '';

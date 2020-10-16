@@ -2,7 +2,7 @@
     <?=render('templates/_cat-menu.php', ['categories' => $categories]);?>
 
     <section class="lot-item container">
-    <?php if (isset($good)) : ?> <!-- Если в шаблон передан массив с данными о товаре -->
+    <?php if (isset($good['title'])) : ?> <!-- Если в шаблон передан массив с данными о товаре -->
     <h2><?=$good['title']?></h2>
     <div class="lot-item__content">
       <div class="lot-item__left">
@@ -41,6 +41,7 @@
           </form>
             <? elseif ($_SESSION['user']['email'] === $good['email']): ?>
             <span>Данный лот создали вы</span>
+            <a class="button button--delete" href="delete-lot.php?id=<?=$good['id']?>">Удалить лот</a>
             <? endif; ?>
         </div>
         <div class="history">

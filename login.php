@@ -25,9 +25,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Если зашли с на ст
 
         if ($user = search_user_by_email($form['email'], $users)) { // Если введенный и-мейл содежится в базе данных
             // Обработка данных для запроса к БД
-            $user_email = implode($user); // Приводим к строке массив с единственным ключом 'email'
-            $sql = "SELECT password FROM users WHERE email='$user_email';"; // Запрос на получение хеша-пароля с данным 'email'
-            $user_hash = implode(mysqli_fetch_assoc(mysqli_query($link, $sql))); // Отправляем запрос в БД, полученные данные приводим к строке
+            $user_email = $form['email']; // Сохраняем почту введенную в форму в переменную
+            $sql = "SELECT password FROM users WHERE email=:user_email;"; // Запрос в БД для получения названия категории
+            $values = ['user_email' => $user_email]; // Значения для подготовленного выражения
+            $sth = $dbh->prepare($sql); // Отправляем подготовленное выражение в БД
+            $sth->execute($values); // Добавляем значения
+            $user_hash = implode($sth->fetch(PDO::FETCH_ASSOC)); // Получаем название категории
+
         } else { // E-mail не найдем в БД
             $errors['email'] = 'Пользователь с указанной почтой не зарегистрирован'; // Добавляем соотв. ошибку
         }
@@ -46,9 +50,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Если зашли с на ст
     } else { // Если ошибок нет
         // Обработка данных для запроса в БД
         $user_email = $form['email']; // Сохраняем в переменную e-mail пользователя
-        $sql = "SELECT * FROM users WHERE email='$user_email';"; // Запрос в БД для получаения всех полей данного пользователя
-        $user = mysqli_fetch_assoc(mysqli_query($link, $sql)); // Отправляем запрос
-        $_SESSION['user'] = $user; // Приваиваем в сессию массив с данными этого юзера
+
+        $sql = "SELECT * FROM users WHERE email=:user_email;"; // Запрос в БД для получения массива данных о пользователе
+        $values = ['user_email' => $user_email]; // Значения для подготовленного выражения
+        $sth = $dbh->prepare($sql); // Отправляем подготовленное выражение в БД
+        $sth->execute($values); // Добавляем значения
+        $_SESSION['user'] = $sth->fetch(PDO::FETCH_ASSOC); // Производим вход присваивая результат запроса из БД в сессию
 
         header('Location: /index.php'); // Перенаправляем пользователя на шлавную страницу
         exit(); // Прекращаем дальнейшее выполнение скрипта

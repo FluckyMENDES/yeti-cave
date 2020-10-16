@@ -9,7 +9,6 @@ require_once 'functions.php';
 require_once 'db/categories.php';
 
 $goods = [];
-
 $search = htmlspecialchars($_GET['search']) ?? '';
 
 if ($search) {
@@ -18,29 +17,26 @@ if ($search) {
     $goods_per_page = 3; // Количество товаров на странице
 
     // Запрос к БД для получения общего кол-ва товаров подходящих по поисковому запросу
-    $sql = "SELECT COUNT(*) as cnt FROM lots
-            WHERE MATCH(title, description)
-            AGAINST ('$search')";
-    $result = mysqli_query($link, $sql);
-    $items_count = mysqli_fetch_assoc($result)['cnt']; // Сохраняем в переменную кол-во элементов
+    $sql = "SELECT COUNT(*) as cnt FROM lots WHERE MATCH(title, description) AGAINST (:search)";
+    $values = ['search' => $search]; // Значения для подготовленного выражения
+    $sth = $dbh->prepare($sql); // Отправляем подготовленное выражение в БД
+    $sth->execute($values); // Добавляем значения
+    $items_count = $sth->fetch(PDO::FETCH_ASSOC)['cnt']; // Сохраняем в переменную кол-во элементов
 
     $pages_count = ceil($items_count / $goods_per_page); // Вычисляем сколько необходимо страниц
     $offset = ($cur_page - 1) * $goods_per_page; // Вычисляем смещение
 
     $pages = range(1, $pages_count); // созаем массив от 1 до кол-ва страниц
 
+    // Запрос в БД для получения всех лотов соотв. поисковому запросу
     $sql = "SELECT lots.*, categories.category FROM lots
             JOIN categories
             ON categories.id = lots.category_id
             WHERE MATCH(title, description)
-            AGAINST ('$search') LIMIT $goods_per_page OFFSET $offset;";
-    $result = mysqli_query($link, $sql);
-    if ($result = mysqli_query($link, $sql)) {
-        while ($row = mysqli_fetch_assoc($result)) { // извлечение ассоциативного массива
-            $goods[] = $row;
-        }
-        mysqli_free_result($result); // удаление выборки
-    }
+            AGAINST (:search) LIMIT $goods_per_page OFFSET $offset;";
+    $sth = $dbh->prepare($sql); // Отправляем подготовленное выражение в БД
+    $sth->execute($values); // Добавляем значения
+    $goods = $sth->fetchAll(PDO::FETCH_ASSOC); // Сохраняем в переменную массив товаров
 }
 
 $page_content = render('templates/search.php', ['search' => $search, 'goods' => $goods, 'categories' => $categories, 'pages' => $pages, 'pages_count' => $pages_count, 'cur_page' => $cur_page]);

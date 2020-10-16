@@ -22,7 +22,7 @@
                 <a class="text-link" href="lot.php?id=<?=$good['id']?>">
                 <li class="lots__item lot">
                     <div class="lot__image">
-                        <img src="<?=$good['img']?>" width="350" height="260" alt="<?=$good['title']?>">
+                        <img src="<?=$good['img']?>"  alt="<?=$good['title']?>">
                     </div>
                     <div class="lot__info">
                         <span class="lot__category"><?=$good['category']?></span>
@@ -42,5 +42,6 @@
             <?php  }
             ?>
         </ul>
+        <?=render('templates/_pagination.php', ['pages' => $pages, 'pages_count' => $pages_count, 'cur_page' => $cur_page]) ?>
     </section>
 </main>

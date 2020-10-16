@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Если зашли с на ст
     }
 
     if (count($errors)) { // Если в массиве с ошибками есть ошибки
-        $page_content = render ('templates/registration.php', ['form' => $form, 'errors' => $errors]); // Выводим шаблон страницы входа и передаем в него массив
+        $page_content = render ('templates/registration.php', ['form' => $form, 'errors' => $errors, 'categories' => $categories]); // Выводим шаблон страницы входа и передаем в него массив
     // ########## УСПЕШНАЯ РЕГИСТРАЦИЯ ##########
     } else { // Если ошибок нет
         foreach ($form as $key => $value) { // Проходимся по всем полям
@@ -78,11 +78,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Если зашли с на ст
             $user['avatar'] = $path; // Добавляем путь к ней в массив пользователя
         }
         $user['reg_date'] = date('Y-m-d H:i:s'); // Добавляем в массив пользователя дату регистрации
-        // Обработка данных для запроса в БД
-        $keys = implode(", ",array_keys($user)); // Получаем все ключи массива $user и приводим их к строке с разделителем ", "
-        $values = implode("', '",array_values($user));  // Получаем все значения массива $user и приводим их к строке с разделителем ", "
-        $sql = "INSERT INTO users ($keys) VALUES ('$values');"; // Формируем SQL запрос
-        $result = mysqli_query($link, $sql); // Посылаем запрос на запись данных пользователя в БД
+
+        // Запрос на добавление в БД нового пользователя
+        $sql = "INSERT INTO users (address, avatar, email, name, password, reg_date) VALUES (:address, :avatar, :email, :name, :password, :reg_date);";
+        $values = ['address' => $user['address'], 'avatar' => $user['avatar'], 'email' => $user['email'], 'name' => $user['name'], 'password' => $user['password'], 'reg_date' => $user['reg_date']]; // Значения для подготовленного выражения
+        $sth = $dbh->prepare($sql); // Отправляем подготовленное выражение в БД
+        $sth->execute($values); // Добавляем значения
 
         // Производим вход на сайт
         $_SESSION['user'] = $user; // Приваиваем в сессию массив с данными этого юзера
