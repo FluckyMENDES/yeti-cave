@@ -7,7 +7,8 @@ require_once 'config.php';
 require_once 'init.php';
 require_once 'functions.php';
 require_once 'db/categories.php';
-
+require_once 'get-winner.php';
+require_once 'vendor/autoload.php';
 
 // Пагинация
 $cur_page = $_GET['page'] ?? 1; // получаем текущую страницу, если ее нет - устанавливаем первую

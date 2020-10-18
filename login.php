@@ -5,7 +5,7 @@ require_once 'functions.php';
 require_once 'init.php';
 require_once 'db/users.php';
 require_once 'db/categories.php';
-
+require_once 'vendor/autoload.php';
 
 $page_title = 'Вход в аккаунт';
 

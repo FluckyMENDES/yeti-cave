@@ -4,6 +4,7 @@ require_once 'config.php';
 require_once 'functions.php';
 require_once 'init.php';
 require_once 'db/categories.php';
+require_once 'vendor/autoload.php';
 
 $good = null; // Изначально обнуляем массив товара
 

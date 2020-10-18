@@ -17,9 +17,12 @@
             <tr class="rates__item <?=$class_name?>">
                 <td class="rates__info">
                     <div class="rates__img">
-                        <img src="<?=$bid['img']?>" width="54" height="40" alt="<?=$bid['title']?>">
+                        <img src="<?=$bid['img']?>" alt="<?=$bid['title']?>">
                     </div>
-                    <h3 class="rates__title"><a href="lot.php?id=<?=$bid['lot_id']?>"><?=$bid['title']?></a></h3>
+                    <div>
+                        <h3 class="rates__title"><a href="lot.php?id=<?=$bid['lot_id']?>"><?=$bid['title']?></a></h3>
+                        <p class="rates__contacts"></p>
+                    </div>
                 </td>
                 <td class="rates__category">
                     <?=$bid['category']?>

@@ -4,6 +4,8 @@ require_once 'config.php';
 require_once 'functions.php';
 require_once 'init.php';
 require_once 'db/categories.php';
+require_once 'vendor/autoload.php';
+
 
 if ($_SESSION['user']['email']) { // Если пользователь не зашел на сайт
 

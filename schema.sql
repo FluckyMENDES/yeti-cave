@@ -40,7 +40,7 @@ CREATE TABLE lots (
     start_price INT,
     current_price INT,
     price_step INT,
-    fav_count INT,
+    is_closed BIT,
     author_id INT,
     winner_id INT,
     category_id INT

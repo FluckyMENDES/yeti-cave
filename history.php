@@ -1,6 +1,7 @@
 <?php
 require_once 'config.php';
 require_once 'functions.php';
+require_once 'vendor/autoload.php';
 
 $page_title = 'История просмотров';
 
