@@ -11,11 +11,10 @@ try {
 }
 
 // Create the Transport
-$transport = (new Swift_SmtpTransport('ssl://smtp.yandex.ru', 465))
-    ->setUsername('phpmailphp')
-    ->setPassword('zZ12345678')
-;
+// $transport = (new Swift_SmtpTransport('ssl://smtp.yandex.ru', 465))
+//     ->setUsername('phpmailphp')
+//     ->setPassword('zZ12345678')
+// ;
 
 // Create the Mailer using your created Transport
-$mailer = new Swift_Mailer($transport);
-
+// $mailer = new Swift_Mailer($transport);

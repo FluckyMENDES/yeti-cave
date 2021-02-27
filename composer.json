@@ -1,0 +1,15 @@
+{
+    "name": "fluck/yeti-cave",
+    "description": "Web-catalog of snowboarding items",
+    "type": "project",
+    // "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Flucky",
+            "email": "flucky@mail.ru"
+        }
+    ],
+    "require": {
+        "swiftmailer/swiftmailer": "^6.0"
+    }
+}
